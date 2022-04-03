@@ -1,13 +1,18 @@
 package com.aleksa.springbootcvgenerator.model;
 
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+
 import java.util.List;
 
-@Data
+
+@Getter
+@Setter
 @Entity
 @Table(name = "sections")
 public class Section {
@@ -22,7 +27,14 @@ public class Section {
     @JoinColumn(name = "section_id", referencedColumnName = "id")
     private List<Field> fields;
 
-    @OneToMany(mappedBy = "section")
+    @OneToMany(mappedBy = "section",cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Obtain> obtains;
+    public Section(){
 
+    }
+
+    public void addObtain(Obtain o){
+        this.obtains.add(o);
+    }
 }

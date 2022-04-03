@@ -1,14 +1,18 @@
 package com.aleksa.springbootcvgenerator.model;
 
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "templates")
 public class CVTemplate {
@@ -26,13 +30,16 @@ public class CVTemplate {
     @Column(name = "date_of_creation", nullable = false)
     private LocalDate dateOfCreation;
 
-    @ManyToMany
-    @JoinTable(
-            name = "tags_templates",
-            joinColumns = @JoinColumn(name = "template_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private List<Tag> tags;
-
-    @OneToMany(mappedBy = "cvTemplate")
+    @OneToMany(mappedBy = "cvTemplate",cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Obtain> obtains;
+
+    public CVTemplate(){
+
+    }
+
+    public void addObtain(Obtain o){
+        this.obtains.add(o);
+    }
+
 }

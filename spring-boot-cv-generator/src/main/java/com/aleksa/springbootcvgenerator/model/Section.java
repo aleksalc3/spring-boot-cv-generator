@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -15,7 +16,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "sections")
-public class Section {
+public class Section implements Comparable<Section>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,18 +24,29 @@ public class Section {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    @Column(name = "repeatable", nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private Boolean repeatable;
+
+
+
+
+
+    @Column(name = "repeatableTitle", nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private Boolean repeatableTitle;
+
+
+    @Column(name = "template_id", nullable = false)
+    private Long templateId;
+
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "section_id", referencedColumnName = "id")
     private List<Field> fields;
 
-    @OneToMany(mappedBy = "section",cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Obtain> obtains;
-    public Section(){
 
-    }
-
-    public void addObtain(Obtain o){
-        this.obtains.add(o);
+    @Override
+    public int compareTo(Section o) {
+        return (int) (this.id-o.id);
     }
 }

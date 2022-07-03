@@ -7,7 +7,8 @@ import java.util.Optional;
 
 public interface ICVTemplateService {
     CVTemplate saveCVTemplate(CVTemplate cvTemplate);
-    void deleteCVTemplate(Long id);
+    void deleteCVTemplate(Long template_id);
     List<CVTemplate> findAll();
     Optional<CVTemplate> findById(Long id);
+    Long getMaxId();
 }

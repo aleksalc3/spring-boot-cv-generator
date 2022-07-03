@@ -22,6 +22,7 @@ public class FieldService implements IFieldService{
 
     @Override
     public void deleteField(Long id) {
+
         fieldRepository.deleteById(id);
     }
 

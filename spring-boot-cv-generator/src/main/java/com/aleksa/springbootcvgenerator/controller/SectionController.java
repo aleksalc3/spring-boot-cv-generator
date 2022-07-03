@@ -1,10 +1,7 @@
 package com.aleksa.springbootcvgenerator.controller;
 
 
-import com.aleksa.springbootcvgenerator.model.CVTemplate;
-import com.aleksa.springbootcvgenerator.model.Obtain;
 import com.aleksa.springbootcvgenerator.model.Section;
-import com.aleksa.springbootcvgenerator.service.ICVTemplateService;
 import com.aleksa.springbootcvgenerator.service.IFieldService;
 import com.aleksa.springbootcvgenerator.service.ISectionService;
 import org.springframework.beans.factory.annotation.Autowired;

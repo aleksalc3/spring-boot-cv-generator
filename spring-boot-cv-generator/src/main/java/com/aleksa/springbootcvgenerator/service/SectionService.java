@@ -1,7 +1,9 @@
 package com.aleksa.springbootcvgenerator.service;
 
+import com.aleksa.springbootcvgenerator.model.Field;
 import com.aleksa.springbootcvgenerator.model.Section;
 import com.aleksa.springbootcvgenerator.repository.ISectionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +27,7 @@ public class SectionService implements ISectionService{
 
     @Override
     public void deleteSection(Long id) {
+
         sectionRepository.deleteById(id);
     }
 
@@ -38,4 +41,7 @@ public class SectionService implements ISectionService{
     public Optional<Section> findById(Long id) {
         return sectionRepository.findById(id);
     }
+
+    @Override
+    public Long getMaxId(){return sectionRepository.getMaxId();}
 }

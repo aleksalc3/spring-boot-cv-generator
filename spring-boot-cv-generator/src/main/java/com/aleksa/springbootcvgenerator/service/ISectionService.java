@@ -10,4 +10,5 @@ public interface ISectionService {
     void deleteSection(Long id);
     List<Section> findAll();
     Optional<Section> findById(Long id);
+    Long getMaxId();
 }

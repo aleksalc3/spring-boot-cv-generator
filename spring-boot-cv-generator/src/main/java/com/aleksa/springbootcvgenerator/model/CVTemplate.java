@@ -1,8 +1,6 @@
 package com.aleksa.springbootcvgenerator.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,7 +16,6 @@ import java.util.List;
 public class CVTemplate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "template_id", nullable = false)
     private Long id;
 
     @Column(name = "name", nullable = false,length = 100)
@@ -30,16 +27,17 @@ public class CVTemplate {
     @Column(name = "date_of_creation", nullable = false)
     private LocalDate dateOfCreation;
 
-    @OneToMany(mappedBy = "cvTemplate",cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Obtain> obtains;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "template_id", referencedColumnName = "id")
+    private List<Section> sections;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_model_id", referencedColumnName = "id")
+    private ImageModel imageModel;
 
     public CVTemplate(){
 
     }
 
-    public void addObtain(Obtain o){
-        this.obtains.add(o);
-    }
 
 }

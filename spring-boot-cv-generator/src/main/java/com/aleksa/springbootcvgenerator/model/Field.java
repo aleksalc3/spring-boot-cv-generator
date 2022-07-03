@@ -2,13 +2,17 @@ package com.aleksa.springbootcvgenerator.model;
 
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Data
+@Getter
+@Setter
 @Entity
 @Table(name = "fields")
-public class Field {
+public class Field implements Comparable<Field>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
@@ -22,4 +26,9 @@ public class Field {
 
     @Column(name = "description", nullable = false, length = 500)
     private String description;
+
+    @Override
+    public int compareTo(Field o) {
+        return (int) (this.Id-o.Id);
+    }
 }
